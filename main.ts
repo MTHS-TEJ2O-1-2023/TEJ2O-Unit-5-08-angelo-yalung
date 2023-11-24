@@ -2,7 +2,7 @@
  *
  * Created by: Angelo Yalung
  * Created on: Nov 2023
- * This program ...
+ * This program measures the distance between objects while moving a Motor
 */
 
 // variables
@@ -11,22 +11,27 @@ let distanceToObject: number = 0
 // setup
 basic.showIcon(IconNames.Happy)
 
-// loop forever
+// indefinite loop
 while (true) {
-    // grabbing the distance to the Object
-  if (input.buttonIsPressed(Button.A) == true) {
+  if (input.buttonIsPressed(Button.A) === true) {
+    // find distance from sonar
+    basic.clearScreen()
     distanceToObject = sonar.ping(
-      DigitalPin.P1,
-      DigitalPin.P2,
-      PingUnit.Centimeters
+        DigitalPin.P1,
+        DigitalPin.P2,
+        PingUnit.Centimeters
     )
+      basic.showNumber(distanceToObject)
+      basic.showIcon(IconNames.Happy)
 
-    basic.showIcon(IconNames.Happy)
-    // if an object is within 10 cm of the sensor
-    if (distanceToObject > 10) {
-      robotbit.StepperTurn(robotbit.Steppers.M1, robotbit.Turns.T1B0)
-        } else {
-          robotbit.StepperTurn(robotbit.Steppers.M1, robotbit.Turns.T1B0)
-        }
+     if (distanceToObject < 10) {
+      robotbit.StpCarMove(-10, 48)
+      basic.pause(500)
+      robotbit.StepperTurn(robotbit.Steppers.M1, robotbit.Turns.T1B4)
+      basic.pause(500)
+      robotbit.StepperTurn(robotbit.Steppers.M2, robotbit.Turns.T1B4)
+      basic.pause(500)
+      robotbit.StpCarMove(10, 48)
     }
+  }
 }
