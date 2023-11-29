@@ -19,7 +19,7 @@ while (true) {
       DigitalPin.P1,
       DigitalPin.P2,
       PingUnit.Centimeters
-      )
+    )
     basic.showNumber(distanceToObject)
     basic.pause(500)
     basic.showIcon(IconNames.Happy)
