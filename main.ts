@@ -11,26 +11,30 @@ let distanceToObject: number = 0
 // setup
 basic.showIcon(IconNames.Happy)
 
-// infinite loop
 while (true) {
-  while (input.buttonIsPressed(Button.A) == true) {
-    // find distance from sonar
+  if (input.buttonIsPressed(Button.A) === true) {
     basic.clearScreen()
-    distanceToObject = sonar.ping(
-      DigitalPin.P1,
-      DigitalPin.P2,
-      PingUnit.Centimeters
-    )
-    basic.showNumber(distanceToObject)
-    // if the distance to an object is less than 10 cm away, turn
-      if (distanceToObject <= 10) {
+    while (true) {
+      // find distance from sonar
+      distanceToObject = sonar.ping(
+        DigitalPin.P1,
+        DigitalPin.P2,
+        PingUnit.Centimeters
+      )
+        // basic.showNumber(distanceToObject)
+        // basic.pause(500)
+        // basic.showIcon(IconNames.Happy)
+      if (distanceToObject < 10) {
         robotbit.StpCarMove(-10, 48)
+        basic.pause(500)
         robotbit.StepperTurn(robotbit.Steppers.M1, robotbit.Turns.T1B4)
+        basic.pause(500)
         robotbit.StepperTurn(robotbit.Steppers.M2, robotbit.Turns.T1B4)
+        basic.pause(500)
         robotbit.StpCarMove(10, 48)
       } else {
-        // moving normally
         robotbit.StpCarMove(10, 48)
-     }
+      }
     }
+  }
 }
